@@ -1,5 +1,6 @@
+from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QApplication, QLabel, QGridLayout, QHBoxLayout, QMainWindow, QPushButton, QSizePolicy, \
-    QSpacerItem, QTextEdit, QVBoxLayout, QWidget
+    QSpacerItem, QLineEdit, QVBoxLayout, QWidget
 from PyQt5.QtGui import QFont, QFontMetrics
 import sys
 
@@ -25,7 +26,7 @@ class Ui_MainWindow(object):
         self.loan_term_label.setFont(self.form_font)
         self.main_layout.addWidget(self.loan_term_label, 2, 0)
         # Text Edit
-        self.loan_term_edit = QTextEdit()
+        self.loan_term_edit = QLineEdit()
         self.loan_term_edit.setFixedHeight(25)
         self.loan_term_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.main_layout.addWidget(self.loan_term_edit, 2, 1)
@@ -35,7 +36,7 @@ class Ui_MainWindow(object):
         self.loan_to_value_label.setFont(self.form_font)
         self.main_layout.addWidget(self.loan_to_value_label, 3, 0)
         # Text Edit
-        self.loan_to_value_edit = QTextEdit()
+        self.loan_to_value_edit = QLineEdit()
         self.loan_to_value_edit.setFixedHeight(25)
         self.loan_to_value_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.main_layout.addWidget(self.loan_to_value_edit, 3, 1)
@@ -45,7 +46,7 @@ class Ui_MainWindow(object):
         self.dscr_label.setFont(self.form_font)
         self.main_layout.addWidget(self.dscr_label, 4, 0)
         # Text Edit
-        self.dscr_edit = QTextEdit()
+        self.dscr_edit = QLineEdit()
         self.dscr_edit.setFixedHeight(25)
         self.dscr_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.main_layout.addWidget(self.dscr_edit, 4, 1)
@@ -55,7 +56,7 @@ class Ui_MainWindow(object):
         self.loan_amort_label.setFont(self.form_font)
         self.main_layout.addWidget(self.loan_amort_label, 5, 0)
         # Text Edit
-        self.loan_amort_edit = QTextEdit()
+        self.loan_amort_edit = QLineEdit()
         self.loan_amort_edit.setFixedHeight(25)
         self.loan_amort_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.main_layout.addWidget(self.loan_amort_edit, 5, 1)
@@ -72,15 +73,32 @@ class Ui_MainWindow(object):
         self.main_layout.addItem(self.btn_spacer, 7, 1)
         # Next Button
         self.next_btn = QPushButton("Next")
+        self.next_btn.clicked.connect(self.nextBtnClicked)
         self.main_layout.addWidget(self.next_btn, 7, 2)
 
         self.centralwidget.setLayout(self.main_layout)
         MainWindow.setCentralWidget(self.centralwidget)
 
+        self.retranslateUi(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Application"))
+
+    def nextBtnClicked(self):
+        is_form_valid = self.main_validation()
+        self.loan_amort_edit.setText(str(is_form_valid))
+
+    def main_validation(self):
+        is_valid = self.loan_term_edit.text().isdigit()
+        is_valid &= self.loan_to_value_edit.text().isdigit()
+
+        return is_valid
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setApplicationDisplayName("Application")
+    #app.setApplicationDisplayName("Application")
 
     MainWindow = QMainWindow()
     ui = Ui_MainWindow()
