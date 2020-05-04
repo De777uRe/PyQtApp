@@ -1,53 +1,90 @@
-from PyQt5.QtWidgets import QApplication, QLabel, QGridLayout, QHBoxLayout, QSizePolicy, QSpacerItem, QTextEdit, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QLabel, QGridLayout, QHBoxLayout, QMainWindow, QPushButton, QSizePolicy, \
+    QSpacerItem, QTextEdit, QVBoxLayout, QWidget
 from PyQt5.QtGui import QFont, QFontMetrics
+import sys
+
+
+class Ui_MainWindow(object):
+
+    def setupUi(self, MainWindow):
+        MainWindow.setBaseSize(500, 500)
+        self.centralwidget = QWidget(MainWindow)
+        self.main_layout = QGridLayout()
+
+        self.main_label = QLabel("Financial Data")
+        self.header_font = QFont("Times", 16)
+        self.main_label.setFont(self.header_font)
+        self.main_layout.addWidget(self.main_label, 0, 1)
+
+        self.header_spacer = QSpacerItem(50, 25, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addItem(self.header_spacer, 1, 0)
+
+        # Label
+        self.loan_term_label = QLabel("Loan Term*")
+        self.form_font = QFont("Times", 12)
+        self.loan_term_label.setFont(self.form_font)
+        self.main_layout.addWidget(self.loan_term_label, 2, 0)
+        # Text Edit
+        self.loan_term_edit = QTextEdit()
+        self.loan_term_edit.setFixedHeight(25)
+        self.loan_term_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addWidget(self.loan_term_edit, 2, 1)
+
+        # Label
+        self.loan_to_value_label = QLabel("Loan To Value (%)*")
+        self.loan_to_value_label.setFont(self.form_font)
+        self.main_layout.addWidget(self.loan_to_value_label, 3, 0)
+        # Text Edit
+        self.loan_to_value_edit = QTextEdit()
+        self.loan_to_value_edit.setFixedHeight(25)
+        self.loan_to_value_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addWidget(self.loan_to_value_edit, 3, 1)
+
+        # Label
+        self.dscr_label = QLabel("DSCR")
+        self.dscr_label.setFont(self.form_font)
+        self.main_layout.addWidget(self.dscr_label, 4, 0)
+        # Text Edit
+        self.dscr_edit = QTextEdit()
+        self.dscr_edit.setFixedHeight(25)
+        self.dscr_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addWidget(self.dscr_edit, 4, 1)
+
+        # Label
+        self.loan_amort_label = QLabel("Loan Amort")
+        self.loan_amort_label.setFont(self.form_font)
+        self.main_layout.addWidget(self.loan_amort_label, 5, 0)
+        # Text Edit
+        self.loan_amort_edit = QTextEdit()
+        self.loan_amort_edit.setFixedHeight(25)
+        self.loan_amort_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addWidget(self.loan_amort_edit, 5, 1)
+
+        # Spacer
+        self.form_btn_spacer = QSpacerItem(50, 25, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addItem(self.form_btn_spacer, 6, 0)
+
+        # Previous Button
+        self.prev_btn = QPushButton("Previous")
+        self.main_layout.addWidget(self.prev_btn, 7, 0)
+        # Spacer
+        self.btn_spacer = QSpacerItem(50, 25, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.main_layout.addItem(self.btn_spacer, 7, 1)
+        # Next Button
+        self.next_btn = QPushButton("Next")
+        self.main_layout.addWidget(self.next_btn, 7, 2)
+
+        self.centralwidget.setLayout(self.main_layout)
+        MainWindow.setCentralWidget(self.centralwidget)
+
 
 if __name__ == "__main__":
-    app = QApplication([])
+    app = QApplication(sys.argv)
     app.setApplicationDisplayName("Application")
-    window = QWidget()
-    window.setBaseSize(500, 500)
 
-    main_layout = QGridLayout()
+    MainWindow = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
 
-    main_label = QLabel("Financial Data")
-    header_font = QFont("Times", 16)
-    main_label.setFont(header_font)
-    main_layout.addWidget(main_label, 0, 1)
-
-    header_spacer = QSpacerItem(50, 25, QSizePolicy.Minimum, QSizePolicy.Minimum)
-    main_layout.addItem(header_spacer, 1, 0)
-
-    # Label
-    loan_term_label = QLabel("Loan Term*")
-    form_font = QFont("Times", 12)
-    loan_term_label.setFont(form_font)
-    main_layout.addWidget(loan_term_label, 2, 0)
-    # Text Edit
-    loan_term_edit = QTextEdit()
-    loan_term_edit.setFixedHeight(25)
-    loan_term_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-    main_layout.addWidget(loan_term_edit, 2, 1)
-
-    # Label
-    loan_to_value_label = QLabel("Loan To Value (%)*")
-    loan_to_value_label.setFont(form_font)
-    main_layout.addWidget(loan_to_value_label, 3, 0)
-    # Text Edit
-    loan_to_value_edit = QTextEdit()
-    loan_to_value_edit.setFixedHeight(25)
-    loan_to_value_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-    main_layout.addWidget(loan_to_value_edit, 3, 1)
-
-    # Label
-    dscr_label = QLabel("DSCR")
-    dscr_label.setFont(form_font)
-    main_layout.addWidget(dscr_label, 4, 0)
-    # Text Edit
-    dscr_edit = QTextEdit()
-    dscr_edit.setFixedHeight(25)
-    dscr_edit.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-    main_layout.addWidget(dscr_edit, 4, 1)
-
-    window.setLayout(main_layout)
-    window.show()
-    app.exec_()
+    sys.exit(app.exec_())
